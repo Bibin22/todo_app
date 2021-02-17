@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+</head>
+<body>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+
+</form>
+<table class="table">
+    <tr>
+        <td>id</td>
+        <td>Task Name</td>
+        <td>Date</td>
+        <td>Status</td>
+
+    </tr>
+    {% for search in searchs %}
+    <tr>
+        <td>{{search.id}}</td>
+        <td>{{search.task_name}}</td>
+        <td>{{search.date}}</td>
+        <td>{{search.status}}</td>
+
+    </tr>
+    {% endfor%}
+</body>
+</html>
