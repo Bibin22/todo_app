@@ -5,7 +5,7 @@ from .forms import TaskCreateForms, TaskSearchForms, TaskUpdateForm
 def create_task(request):
     if request.method == 'GET':
         form = TaskCreateForms()
-        tasks = Tasks.objects.all()
+        tasks = Tasks.objects.filter(status="not completed")
 
         context = {
             "tasks": tasks,
@@ -76,5 +76,18 @@ def update(request, id):
     context = {
         "form": form
     }
+    if request.method == 'POST':
+        form = TaskUpdateForm(request.POST)
+        if form.is_valid():
+            task_name = form.cleaned_data.get('task_name')
+            date = form.cleaned_data.get('date')
+            status = form.cleaned_data.get('status')
+            task = Tasks.objects.get(id=id)
+            task.task_name = task_name
+            task.date = date
+            task.status = status
+            task.save()
+            return redirect('create')
+
 
     return render(request, 'todo/taskupdate.html', context)

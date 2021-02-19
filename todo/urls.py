@@ -15,9 +15,11 @@ Including another URLconf
 """
 
 from django.urls import path
+from django.shortcuts import render
 from .views import create_task, search, delete, update
 
 urlpatterns = [
+    path('', lambda request:render(request, 'todo/home.html')),
     path('create', create_task, name='create'),
     path('search', search, name='search'),
     path('delete/<int:id>', delete, name='delete'),
